@@ -3,42 +3,30 @@ public class SquareEquation
 {
     public static double[] Solve(double a, double b, double c)
     {
-        double[] Result = new double[2];
-        double D,x1,x2;
-        D=(b*b)-(4*a*c);
-        double epsilon=1e-9;
+        double Epsilon=1e-9;
+        double D=b * b - 4 *a*c;
+        double[] Result1 = new double[] { };
 
-        if ((-epsilon<a)&&(a<epsilon))
+        if (-Epsilon < a && a < Epsilon) 
         {
-            throw new System.ArgumentException("Ошибочка вышла"); 
-        }             
-        if ((Double.IsNaN(a)) || (Double.IsNegativeInfinity(a)) || (Double.IsPositiveInfinity(a))||(Math.Abs(a)==0) ) 
-        {
-            throw new ArgumentException("Ошибочка вышла");
+            throw new ArgumentException();
         }
-        if ((Double.IsNaN(b)) || (Double.IsNegativeInfinity(b)) || Double.IsPositiveInfinity(b)) 
-        {
-            throw new ArgumentException("Ошибочка вышла");
-        }
-        if ((Double.IsNaN(c)) || (Double.IsNegativeInfinity(c)) || Double.IsPositiveInfinity(c)) 
-        {
-             throw new ArgumentException("Ошибочка вышла");
-        }
-        if (D<=-epsilon)
-        {
-           Result = new double[0];
-        }
-        else if ((-epsilon<D) && (D<epsilon))
-        {
-            x1=-b/(2*a);
-            Result = new double[] {x1};
+        if ( new[] { a, b, c }.Any(double.IsNaN) || new[] { a, b, c }.Any(double.IsInfinity))
+            throw new ArgumentException();
+        
+        if (D <= -Epsilon) return Result1;
+        else if (-Epsilon < D & D < Epsilon)
+        { 
+            double[] Result2 = new double[1];
+            Result2[0] = -(b) / 2*a;
+            return Result2;
         }
         else
         {
-            x1 = (2*c)/-(b+Math.Sign(b)*Math.Sqrt(D));
-            x2 = c / (a*x1);
-            Result = new double[] { x1, x2 };
+            double[] Result3 = new double[2];
+            Result3[0] = -(b + Math.Sign(b) * Math.Sqrt(D)) / 2;
+            Result3[1] = c / Result3[0];
+            return Result3;
         }
-        return Result;
     }
 }
