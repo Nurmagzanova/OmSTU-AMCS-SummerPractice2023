@@ -1,0 +1,26 @@
+name: main test
+
+on:
+  push:
+    branches: ["space-battle"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore spacebattle/SpaceBattle/SpaceBattle.csproj
+
+      - name: Build
+        run: dotnet build spacebattle/SpaceBattle/SpaceBattle.csproj --no-restore /p:ContinuousIntegrationBuild=true
+
+      - name: Test
+        run: dotnet test ./spacebattle/SpaceBattle.Tests/Spacebattle.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
