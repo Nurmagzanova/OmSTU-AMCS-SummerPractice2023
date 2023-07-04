@@ -2,7 +2,7 @@ name: main test
 
 on:
   push:
-    branches: ["spacebattle/SpaceBattle/SpaceBattle.csproj"]
+    branches: ["space-battle"]
 
 jobs:
   build:
