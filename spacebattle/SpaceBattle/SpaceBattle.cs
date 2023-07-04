@@ -1,7 +1,6 @@
 ﻿namespace SpaceBattle;
 public class SpaceShip
 {
-    
     public double[] position = new double[2]{double.NaN, double.NaN};
     public double[] speed = new double[2]{double.NaN, double.NaN};
     public bool possibility_of_movement = true;
